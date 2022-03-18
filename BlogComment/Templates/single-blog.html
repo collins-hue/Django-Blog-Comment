@@ -1,0 +1,154 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% static "images" as url %}
+{% block title%}  Blog - Home {% endblock %}
+
+{% block content %}
+<body>
+  <!--================ Start Header Menu Area =================-->
+
+	<!--================ End Header Menu Area =================-->
+
+
+	<!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="blog">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Blog Hub</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+				<h2>
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Home - CentumCloud Developers</a></li></h2>
+              
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+
+
+
+  <!--================Blog Area =================-->
+	<section class="blog_area single-post-area py-80px section-margin--small">
+			<div class="container">
+					<div class="row">
+							<div class="col-lg-8 posts-list">
+									<div class="single-post row">
+											<div class="col-lg-12">
+													<div class="feature-img">
+															<img class="img-fluid" src="{{object.image.url}}" alt="">
+													</div>
+											</div>
+											<div class="col-lg-3  col-md-3">
+													<div class="blog_info text-right">
+
+															<ul class="blog_meta list">
+															
+																			</a>
+																	</li>
+																	<li>
+																			<a href="#">{{object.date}}
+																					<i class="lnr lnr-calendar-full"></i>
+																			</a>
+																	</li>
+
+																	<li>
+																			<a href="#comments">Comments
+																					<i class="lnr lnr-bubble"></i>
+																			</a>
+																	</li>
+															</ul>
+													</div>
+											</div>
+											<div class="col-lg-9 col-md-9 blog_details">
+													<h2>{{object.tittle | title}}</h2>
+													<p class="excert">
+														{{object.content | safe}}
+													</p>
+											</div>
+
+									</div>
+
+									<div class="comments-area">
+											<h4>Comments</h4>
+
+
+											<div id="comments" class="comment-list">
+												{% for comment in comments %}
+													<div class="single-comment justify-content-between d-flex">
+															<div class="user justify-content-between d-flex">
+
+																	<div class="desc">
+																			<h5>
+																					<a href="#">{{ comment.name }}</a>
+																			</h5>
+																			<p class="date">{{ comment.date }}</p>
+																			<p class="comment">
+																				{{ comment.comment | linebreaks }}
+																			</p>
+																	</div>
+						<!-----------------------------------
+																	<div class="desc">
+																			<h5>
+																					<p>{{comment.name}}</p>
+																			</h5>
+																		<p class="date">{{object.replydate}}</p>
+																			<p class="comment">
+																				{{object.reply}}
+																			</p>
+																	</div>
+							-------------------------------------------->
+															</div>
+
+													</div>
+                                                {% endfor %}
+											</div>
+
+									</div>
+									<div class="comment-form">
+
+											<h4>Leave a Comment</h4>
+                                        {% if new_comment %}
+										<div class="alert alert-success" role="alert">
+											Your Comment is awaiting Moderation
+										</div>
+										{% else %}
+											<form  method="post">
+													<div class="form-group form-inline" >
+
+                                                        <div class="form-group form-inline">
+															<div class="form-group col-lg-6 col-md-6 name">
+																	{% render_field comment_form.name class+="form-control myCSSclass" placeholder="Enter your Name" %}
+															</div>
+															<div class="form-group col-lg-6 col-md-6 email">
+                                                                 {% render_field comment_form.email class+="form-control myCSSclass" placeholder="Enter your Email address" %}
+															</div>
+													</div>
+                                                        <div class="form-group">
+															  {% render_field comment_form.comment class+="form-control myCSSclass" placeholder="Your comment" %}
+													</div>
+															{% csrf_token %}
+												<button type="submit" class="button button-postComment button--active">Post Comment</button>
+
+											</form>
+										{% endif %}
+									</div>
+							</div>
+
+
+					</div>
+			</div>
+	</section>
+  
+	<!--================Blog Area =================-->
+  
+
+  
+  
+
+  <!--================ Start footer Area  =================-->
+  {% endblock %}

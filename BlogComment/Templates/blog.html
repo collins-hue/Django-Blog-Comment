@@ -1,0 +1,106 @@
+{% extends "./base.html" %}
+{% load static %}
+{% static "images" as url %}
+{% block title%} Home {% endblock %}
+
+{% block content %}
+
+  <section class="blog_area">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-8">
+                  <div class="blog_left_sidebar">
+
+                      <article class="row blog_item">
+                        {% for Blog in obj %}
+                          <div class="col-md-3">
+                              <div class="blog_info text-right">
+                                  <ul class="blog_meta list">
+                                          <a href="{{Blog.get_absolute_url}}">{{Blog.date}}
+                                              <i class="lnr lnr-calendar-full"></i>
+                                          </a>
+                                      </li>
+
+                                      
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="col-md-9">
+                              <div class="blog_post">
+                                  <img src="{{Blog.image.url}}" alt="">
+                                  <div class="blog_details">
+                                      <a href="{{Blog.slug}}">
+                                          <h2>{{ Blog.tittle }}</h2>
+                                      </a>
+                                      <p>{{ Blog.content|slice:"200"|safe }}</p>
+                                      <a href="{{Blog.slug}}" class="button button-blog">View More</a>
+                                  </div>
+                              </div>
+                          </div>
+                          {% endfor %}
+                      </article>
+
+
+
+                      
+                  </div>
+              </div>
+              <div class="col-lg-4">
+                  <div class="blog_right_sidebar">
+
+                      <aside class="single_sidebar_widget author_widget">
+                          {% for  Social in socls %}
+                        
+                          <h4>Collins Murgor</h4>
+                          <p>Senior blog writer</p>
+                          <div class="social_icon">
+                              <a href="{{Social.facebook}}">
+                                  <i class="fab fa-facebook-f"></i>
+                              </a>
+                              <a href="{{Social.Twitter}}">
+                                  <i class="fab fa-twitter"></i>
+                              </a>
+                              <a href="{{Social.linkedin}}">
+                                  <i class="fab fa-github"></i>
+                              </a>
+                              <a href="{{Social.reddit}}">
+                                <i class="fab fa-reddit"></i>
+                              </a>
+                          </div>
+                          <p>Murgor Collins Kirwa Murgor(Self Taught Develope) is an Engineering Student pursuing Mechanical & Industrial Engineering at Masinde Muliro
+                              University of Science and Technology.
+                          </p>
+                          <div class="br"></div>
+                          {% endfor %}
+                      </aside>
+                      <aside class="single_sidebar_widget popular_post_widget">
+                          <h3 class="widget_title">Popular Posts</h3>
+                          {% for Blog in obj%}
+                          <div class="media post_item">
+
+                              <div class="media-body">
+                                  <a href="{{Blog.slug}}">
+                                      <h3>{{Blog.tittle | title}}</h3>
+                                  </a>
+                                  <p>{{Blog.date}}</p>
+                              </div>
+                          </div>
+                          {% endfor %}
+
+
+
+                          <div class="br"></div>
+                      </aside>
+
+                      
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <!--================Blog Area =================-->
+
+
+  
+{% endblock %}
